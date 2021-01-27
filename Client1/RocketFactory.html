@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="RocketFactory.css">
+  <script src="main.js"></script>
+  <script src="server.js"></script>
+
+  <title>Rocket Factory</title>
+</head>
+
+<body>
+  <h1>Welcome to Rocket Factory</h1>
+
+  <div id="buildRocket">
+    <form>
+      <fieldset>
+        <legend> Name </legend>
+        <input name="Name" type="text" id="Name" placeholder="Name" required />
+      </fieldset>
+
+      <fieldset>
+        <legend>Color</legend>
+        <input type="checkbox" name="color" value="red"> red
+        <input type="checkbox" name="color" value="blue"> blue
+        <input type="checkbox" name="color" value="green"> green
+        <input type="checkbox" name="color" value="yellow"> yellow
+      </fieldset>
+
+      <fieldset>
+        <legend>Explosion</legend>
+        <input type="radio" name="explosion" value="round"> round
+        <input type="radio" name="explosion" value="rain"> rain
+        <input type="radio" name="explosion" value="fountain"> fountain
+      </fieldset>
+
+      <fieldset>
+        <legend>Lifetime</legend>
+        <input type="radio" name="lifetime" value="short"> short
+        <input type="radio" name="lifetime" value="medium"> medium
+        <input type="radio" name="lifetime" value="long"> long
+      </fieldset>
+
+    </form>
+    <button type="button" id="settings">save settings</button>
+  </div>
+
+  <div id="finalRocket">
+    <form>
+      <fieldset>
+        <legend> Your Rocket </legend>
+        <div id="finalName">
+          <p>Build a new Rocket and save settings or edit an old Rocket by selecting it. </p>
+          Name:
+        </div>
+        <div id="finalColor">Color:</div>
+        <div id="finalExplosion">Explosion:</div>
+        <div id="finalLifetime">Lifetime:</div>
+
+      </fieldset>
+    </form>
+    <button type="button" id="submit">submit Rocket</button>
+  </div>
+
+  <div id="oldRockets">
+    <p>old rockets incoming...</p>
+  </div>
+
+</body>
+
+</html>

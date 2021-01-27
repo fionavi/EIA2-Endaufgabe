@@ -1,0 +1,27 @@
+body {
+    background-color: firebrick;
+    color: floralwhite;
+    
+}
+
+h1 {
+    font-size: 50px;
+    text-align: center;
+}
+
+#buildRocket {
+    width: 30%;
+    float:left;
+}
+
+#finalRocket {
+    float:left;
+    width: 30%;
+    margin-left: 50px;
+}
+
+#oldRockets {
+    width: 30%;
+    margin-left: 50px;
+    float: right;
+}
