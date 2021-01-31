@@ -29,8 +29,8 @@ export namespace Ende {
 
         console.log("Server starting on port " + _port);
 
-        server.listen(_port);
-        server.addListener("request", handleRequest);
+        server.listen(_port);                       //soll bei port abhorchen
+        server.addListener("request", handleRequest); //soll dort nach request abhorchen und ggf handleRequest aufrufen
     }
 
     // async function connectToDatabase(_url: string): Promise<void> {

@@ -1,0 +1,22 @@
+{
+  "name": "eia2-endaufgabe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node Client1/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fionavi/EIA2-Endaufgabe.git"
+  },
+  "author": "fiona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fionavi/EIA2-Endaufgabe/issues"
+  },
+  "homepage": "https://github.com/fionavi/EIA2-Endaufgabe#readme",
+  "dependencies": {
+    "@types/node": "^14.14.22"
+  }
+}

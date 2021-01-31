@@ -3,6 +3,10 @@ var Ende;
 (function (Ende) {
     window.addEventListener("load", handleload);
     let particles = [];
+    // interface Vector {
+    //     x: number;
+    //     y: number;
+    // }
     function handleload(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas) {
@@ -13,7 +17,8 @@ var Ende;
         Ende.crc2 = canvas.getContext("2d");
         console.log(Ende.crc2);
         drawSky();
-        drawRound(100, 100);
+        let position = new Ende.Vector(100, 100);
+        drawRound(position);
         // console.log("round is drawing");
         // let nParticles: number = 10;
         // let radiusParticle: number = 1;
@@ -52,7 +57,7 @@ var Ende;
     }
     function drawRound(_position) {
         console.log("round is drawing", _position);
-        let nParticles = 50;
+        let nParticles = 100;
         let radiusParticle = 2;
         let particle = new Path2D();
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
@@ -62,8 +67,8 @@ var Ende;
         for (let drawn = 0; drawn < nParticles; drawn++) {
             console.log(drawn + " particles drawn.");
             Ende.crc2.save();
-            let x = (Math.random() - 0.5);
-            let y = -(Math.random());
+            let x = (Math.random() * 100);
+            let y = (Math.random() * 100);
             Ende.crc2.translate(x, y);
             Ende.crc2.fill(particle);
             Ende.crc2.restore();

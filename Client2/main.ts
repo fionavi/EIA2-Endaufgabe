@@ -9,11 +9,11 @@ namespace Ende {
     let particles: Particle[] = [];
 
 
-    interface Vector {
-        x: number;
-        y: number;
-    
-   
+    // interface Vector {
+    //     x: number;
+    //     y: number;
+
+    // }
 
     function handleload(_event: Event): void {
 
@@ -29,8 +29,9 @@ namespace Ende {
         console.log(crc2);
         drawSky();
 
+        let position: Vector = new Vector(100, 100);
 
-        drawRound(100, 100);
+        drawRound(position);
 
         // console.log("round is drawing");
 
@@ -83,12 +84,12 @@ namespace Ende {
     function drawRound(_position: Vector): void {
         console.log("round is drawing", _position);
 
-        let nParticles: number = 50;
+        let nParticles: number = 100;
         let radiusParticle: number = 2;
         let particle: Path2D = new Path2D();
-       
+
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
-        
+
         crc2.save();
         crc2.translate(_position.x, _position.y);
         crc2.fillStyle = "blue";
@@ -96,8 +97,8 @@ namespace Ende {
         for (let drawn: number = 0; drawn < nParticles; drawn++) {
             console.log(drawn + " particles drawn.");
             crc2.save();
-            let x: number = (Math.random() - 0.5);
-            let y: number = - (Math.random());
+            let x: number = (Math.random() * 100);
+            let y: number = (Math.random() * 100);
             crc2.translate(x, y);
             crc2.fill(particle);
             crc2.restore();
