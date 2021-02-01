@@ -61,17 +61,18 @@ var Ende;
         document.querySelector("#finalLifetime").innerHTML = "<br>" + "Lifetime ";
     }
     async function submitToServer(_event) {
-        let formData = new FormData(document.forms[1]);
+        let formData = new FormData(document.forms[0]);
         let query = new URLSearchParams(formData);
         let url = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
+        // url += "?" + query.toString();
+        console.log("Prüfe Inhalt: " + query.toString());
         console.log(url);
         let response = await fetch(url); //wird an server gesendet, solange wird auf response gewartet
         let responseText = await response.text();
         console.log(response);
         // alert("Dein Rezept wurde versendet.");
-        await fetch(url + "?" + query.toString());
-        alert("Rhis is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+        alert("This is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
     }
 })(Ende || (Ende = {}));
 //     function showAll(_event: Event): void {

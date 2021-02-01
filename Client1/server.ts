@@ -45,7 +45,7 @@ export namespace Ende {
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         console.log("request kam rein");
-        alert("Request wurde an Server gesendet");
+        //alert("Request wurde an Server gesendet");
 
         _response.setHeader("content-type", "text/html; chartset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");

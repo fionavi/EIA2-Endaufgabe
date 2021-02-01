@@ -91,20 +91,22 @@ namespace Ende {
 
     async function submitToServer(_event: Event): Promise<void> {
         
-        let formData: FormData = new FormData(document.forms[1]);
+        let formData: FormData = new FormData(document.forms[0]);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
 
         
         let url: string = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
+        
+       // url += "?" + query.toString();
+        console.log("Prüfe Inhalt: " + query.toString());
         console.log(url);
 
         let response: Response = await fetch(url);   //wird an server gesendet, solange wird auf response gewartet
         let responseText: string = await response.text();
         console.log(response);
         // alert("Dein Rezept wurde versendet.");
-        await fetch(url + "?" + query.toString());
-        alert("Rhis is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+        alert("This is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
 
 
     }
