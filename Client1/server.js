@@ -6,6 +6,9 @@ const Url = require("url");
 //import * as Mongo from "mongodb";
 var Ende;
 (function (Ende) {
+    // interface Rezept {
+    //     [type: string]: string | string[] | undefined;
+    // }
     //let rockets: Mongo.Collection;
     let port = process.env.PORT;
     if (port == undefined) {
@@ -34,6 +37,7 @@ var Ende;
     // }
     function handleRequest(_request, _response) {
         console.log("request kam rein");
+        alert("Request wurde an Server gesendet");
         _response.setHeader("content-type", "text/html; chartset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
         if (_request.url) {
@@ -43,13 +47,13 @@ var Ende;
             }
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
-            storeRezept(url.query);
+            // storeRezept(url.query);
         }
         _response.write("This is my response");
         _response.end();
     }
-    function storeRezept(_rezept) {
-        rockets.insertOne(_rezept);
-    }
+    // function storeRezept(_rezept: Rezept): void {
+    //     rockets.insertOne(_rezept);
+    // }
 })(Ende = exports.Ende || (exports.Ende = {}));
 //# sourceMappingURL=server.js.map

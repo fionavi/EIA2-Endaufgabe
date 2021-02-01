@@ -3,10 +3,7 @@ var Ende;
 (function (Ende) {
     window.addEventListener("load", handleload);
     let particles = [];
-    // interface Vector {
-    //     x: number;
-    //     y: number;
-    // }
+    let imgData;
     function handleload(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas) {
@@ -19,27 +16,9 @@ var Ende;
         drawSky();
         let position = new Ende.Vector(100, 100);
         drawRound(position);
-        // console.log("round is drawing");
-        // let nParticles: number = 10;
-        // let radiusParticle: number = 1;
-        // let particle: Path2D = new Path2D();
-        // let gradient: CanvasGradient = crc2.createRadialGradient(0, 0, 0, 0, 0, radiusParticle);
-        // for (let drawn: number = 0; drawn < nParticles; drawn++) {
-        //     crc2.save();
-        //     let x: number = (Math.random() - 0.5);
-        //     let y: number = - (Math.random());
-        //     crc2.translate(x, y);
-        //     crc2.fill(particle);
-        //     crc2.restore();
-        //     console.log("has drawn 1 particle");
-        // }
-        // particle.arc(0, 0, 10, 0, 2 * Math.PI);
-        // gradient.addColorStop(0, "red");
-        // gradient.addColorStop(0, "blue");
-        // crc2.save();
-        // crc2.translate(100, 100);
-        // crc2.fillStyle = gradient;
-        // crc2.restore();
+        //createParticle(3);
+        imgData = Ende.crc2.getImageData(0, 0, 300, 600);
+        window.setInterval(update, 20);
     }
     function drawSky() {
         Ende.crc2.fillStyle = "black";
@@ -60,6 +39,8 @@ var Ende;
         let nParticles = 100;
         let radiusParticle = 2;
         let particle = new Path2D();
+        let radians = (Math.PI * 2) / nParticles;
+        let power = 12;
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
         Ende.crc2.save();
         Ende.crc2.translate(_position.x, _position.y);
@@ -67,13 +48,60 @@ var Ende;
         for (let drawn = 0; drawn < nParticles; drawn++) {
             console.log(drawn + " particles drawn.");
             Ende.crc2.save();
-            let x = (Math.random() * 100);
-            let y = (Math.random() * 100);
+            // let x: number = (Math.random() * 100);
+            // let y: number = (Math.random() * 100);
+            let x = Math.cos(radians * drawn) * (Math.random() * power);
+            let y = Math.sin(radians * drawn) * (Math.random() * power);
             Ende.crc2.translate(x, y);
             Ende.crc2.fill(particle);
             Ende.crc2.restore();
         }
         Ende.crc2.restore();
+    }
+    // let mouse: MouseEvent = {
+    //     x: innerWidth / 2,
+    //     y: innerHeight / 2
+    // };
+    //     addEventListener("click", (event) => {
+    //         mouse.x = event.clientX;
+    //         mouse.y = event.clientY;
+    //         let particleCount: number = 500;
+    //         let power: number = 12;
+    //         let radians: number = (Math.PI * 2) / particleCount;
+    //         for (let i: number = 0; i < particleCount; i++) {
+    //             particles.push(
+    //                 new Particle(
+    //                     mouse.x,
+    //                     mouse.y,
+    //                     3,)
+    //             x: Math.cos(radians * i) * (Math.random() * power);
+    //             y: Math.sin(radians * i) * (Math.random() * power);
+    // }
+    //     })
+    // function createParticle(_nParticle: number): void {
+    //     console.log("Create Particles");
+    //     for (let i: number = 0; i < _nParticle; i++) {
+    //         let x: number = Math.random() * (300 - 150) + 150;
+    //         let particle1: Particle = new Round(2.0, x, 400);
+    //         let particle2: Particle = new Rain(2.0, x, 100);
+    //         let particle3: Particle = new Fountain(1, x, 3);
+    //         console.log("Particle: " + particle1);
+    //         console.log("Particle: " + particle2);
+    //         console.log("Particle: " + particle3);
+    //         particle1.draw();
+    //         particle3.draw();
+    //         particles.push(particle1);
+    //         particles.push(particle2);
+    //         particles.push(particle3);
+    //     }
+    // }
+    function update() {
+        console.log("Update");
+        Ende.crc2.putImageData(imgData, 0, 0);
+        for (let particle of particles) {
+            particle.explode(1 / 50);
+            particle.draw();
+        }
     }
 })(Ende || (Ende = {}));
 //# sourceMappingURL=main.js.map

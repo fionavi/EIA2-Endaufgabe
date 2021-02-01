@@ -1,10 +1,10 @@
-/* body {
+body {
     background-color: firebrick;
     color: floralwhite;
     
-} */
+}
 
-body {
+/* body {
 	background: linear-gradient(-45deg, #460303, #12012e, #003a1f, #23d5ab);
 	background-size: 400% 400%;
     animation: gradient 15s ease infinite;
@@ -21,7 +21,7 @@ body {
 	100% {
 		background-position: 0% 50%;
 	}
-}
+} */
 
 h1 {
     font-size: 50px;

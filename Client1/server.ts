@@ -3,9 +3,9 @@ import * as Url from "url";
 //import * as Mongo from "mongodb";
 
 export namespace Ende {
-    interface Rezept {
-        [type: string]: string | string[] | undefined;
-    }
+    // interface Rezept {
+    //     [type: string]: string | string[] | undefined;
+    // }
 
     //let rockets: Mongo.Collection;
     let port: number | string | undefined = process.env.PORT;
@@ -45,7 +45,7 @@ export namespace Ende {
 
     function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
         console.log("request kam rein");
-
+        alert("Request wurde an Server gesendet");
 
         _response.setHeader("content-type", "text/html; chartset=utf-8");
         _response.setHeader("Access-Control-Allow-Origin", "*");
@@ -59,16 +59,16 @@ export namespace Ende {
 
             let jsonString: string = JSON.stringify(url.query);
             _response.write(jsonString);
-            storeRezept(url.query);
+            // storeRezept(url.query);
         }
 
         _response.write("This is my response");
         _response.end();
     }
 
-    function storeRezept(_rezept: Rezept): void {
-        rockets.insertOne(_rezept);
-    }
+    // function storeRezept(_rezept: Rezept): void {
+    //     rockets.insertOne(_rezept);
+    // }
 
 
 
