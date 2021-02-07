@@ -3,22 +3,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Ende = void 0;
 const Http = require("http");
 const Url = require("url");
-//import * as Mongo from "mongodb";
+const Mongo = require("mongodb");
 var Ende;
 (function (Ende) {
     // interface Rezept {
     //     [type: string]: string | string[] | undefined;
     // }
-    //let rockets: Mongo.Collection;
+    let rockets;
     let port = process.env.PORT;
     if (port == undefined) {
         port = 5001;
     }
-    //let databaseUrl: string = "mongodb+srv://FionaVirnich:FionaVirnich@eia2.l1pl8.mongodb.net/Hexenkessel7?retryWrites=true&w=majority";
-    //let databaseUrl: string = "mongodb+srv://Snape:alohomora@eia2.l1pl8.mongodb.net/Hexenkessel7?retryWrites=true&w=majority";
+    // let databaseUrl: string = "mongodb+srv://FionaVirnich:FionaVirnich@eia2.l1pl8.mongodb.net/Hexenkessel7?retryWrites=true&w=majority";
+    let databaseUrl = "mongodb+srv://fiona:raketen@rocketfactory.fcltf.mongodb.net/Firework?retryWrites=true&w=majority";
+    //
     //"mongodb://localhost:27017"
     startServer(port);
-    //connectToDatabase(databaseUrl);
+    connectToDatabase(databaseUrl);
     function startServer(_port) {
         let server = Http.createServer();
         console.log("server");
@@ -26,15 +27,15 @@ var Ende;
         server.listen(_port); //soll bei port abhorchen
         server.addListener("request", handleRequest); //soll dort nach request abhorchen und ggf handleRequest aufrufen
     }
-    // async function connectToDatabase(_url: string): Promise<void> {
-    //     console.log("Connected to Database");
-    //     let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
-    //     let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
-    //     await mongoClient.connect();
-    //     console.log("Connected to Client");
-    //     rockets = mongoClient.db("Hexenkessel7").collection("Rezepte");
-    //     console.log("Database connection", rockets != undefined);
-    // }
+    async function connectToDatabase(_url) {
+        console.log("Connected to Database");
+        let options = { useNewUrlParser: true, useUnifiedTopology: true };
+        let mongoClient = new Mongo.MongoClient(_url, options);
+        await mongoClient.connect();
+        console.log("Connected to Client");
+        rockets = mongoClient.db("Firework").collection("Rockets");
+        console.log("Database connection", rockets != undefined);
+    }
     function handleRequest(_request, _response) {
         console.log("request kam rein");
         //alert("Request wurde an Server gesendet");

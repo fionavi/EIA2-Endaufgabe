@@ -3,6 +3,7 @@
 var Ende;
 (function (Ende) {
     window.addEventListener("load", handleLoad);
+    // window.addEventListener("load", showAll);
     function handleLoad(_event) {
         console.log("Start");
         document.querySelector("#settings").addEventListener("click", saveSettings);
@@ -73,11 +74,19 @@ var Ende;
         console.log(response);
         // alert("Dein Rezept wurde versendet.");
         alert("This is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+        let newDiv = document.createElement("div");
+        let newContent = document.createTextNode(responseText);
+        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+        let oldRocketsDiv = document.getElementById("oldRockets");
+        oldRocketsDiv.appendChild(newDiv);
     }
+    //function showAll(_event: Event): void {
+    // console.log("show collections");
+    // erstelle ein neues div Element
+    // und gib ihm etwas Inhalt
+    // füge das neu erstellte Element und seinen Inhalt ins DOM ein
+    // let currentDiv: HTMLElement = document.getElementById("div1");
+    // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
+    // }
 })(Ende || (Ende = {}));
-//     function showAll(_event: Event): void {
-//         console.log("show collections");
-//     }
-//     //url + "?" + query.toString();
-// }
 //# sourceMappingURL=main.js.map

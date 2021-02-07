@@ -44,3 +44,10 @@ h1 {
     margin-left: 50px;
     float: right;
 }
+
+#div1 {
+    width: 30%;
+    float: right;
+    background-color: blanchedalmond;
+    opacity: 0.5;
+}

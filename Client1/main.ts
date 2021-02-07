@@ -3,6 +3,7 @@
 namespace Ende {
 
     window.addEventListener("load", handleLoad);
+   // window.addEventListener("load", showAll);
 
     function handleLoad(_event: Event): void {
         console.log("Start");
@@ -90,15 +91,15 @@ namespace Ende {
 
 
     async function submitToServer(_event: Event): Promise<void> {
-        
+
         let formData: FormData = new FormData(document.forms[0]);
         let query: URLSearchParams = new URLSearchParams(<any>formData);
 
-        
+
         let url: string = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
-        
-       // url += "?" + query.toString();
+
+        // url += "?" + query.toString();
         console.log("Prüfe Inhalt: " + query.toString());
         console.log(url);
 
@@ -108,13 +109,28 @@ namespace Ende {
         // alert("Dein Rezept wurde versendet.");
         alert("This is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
 
-
+        let newDiv: HTMLDivElement = document.createElement("div");
+        let newContent: any = document.createTextNode(responseText);
+        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+        let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
+        oldRocketsDiv.appendChild(newDiv);
     }
 
-}
-//     function showAll(_event: Event): void {
-//         console.log("show collections");
-//     }
-//     //url + "?" + query.toString();
-// }
 
+    //function showAll(_event: Event): void {
+
+       // console.log("show collections");
+
+
+        // erstelle ein neues div Element
+        // und gib ihm etwas Inhalt
+
+        // füge das neu erstellte Element und seinen Inhalt ins DOM ein
+        // let currentDiv: HTMLElement = document.getElementById("div1");
+        // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
+
+   // }
+
+
+
+}
