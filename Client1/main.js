@@ -64,6 +64,7 @@ var Ende;
     async function submitToServer(_event) {
         let formData = new FormData(document.forms[0]);
         let query = new URLSearchParams(formData);
+        // let url: string = "http://localhost:5001";
         let url = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
         // url += "?" + query.toString();

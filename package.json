@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node Client1/server.js"
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/fionavi/EIA2-Endaufgabe#readme",
   "dependencies": {
-    "@types/node": "^14.14.22"
+    "@types/mongodb": "^3.6.6",
+    "@types/node": "^14.14.22",
+    "mongodb": "^3.6.4"
   }
 }

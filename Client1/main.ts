@@ -3,7 +3,7 @@
 namespace Ende {
 
     window.addEventListener("load", handleLoad);
-   // window.addEventListener("load", showAll);
+    // window.addEventListener("load", showAll);
 
     function handleLoad(_event: Event): void {
         console.log("Start");
@@ -96,6 +96,7 @@ namespace Ende {
         let query: URLSearchParams = new URLSearchParams(<any>formData);
 
 
+        // let url: string = "http://localhost:5001";
         let url: string = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
 
@@ -119,17 +120,17 @@ namespace Ende {
 
     //function showAll(_event: Event): void {
 
-       // console.log("show collections");
+    // console.log("show collections");
 
 
-        // erstelle ein neues div Element
-        // und gib ihm etwas Inhalt
+    // erstelle ein neues div Element
+    // und gib ihm etwas Inhalt
 
-        // füge das neu erstellte Element und seinen Inhalt ins DOM ein
-        // let currentDiv: HTMLElement = document.getElementById("div1");
-        // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
+    // füge das neu erstellte Element und seinen Inhalt ins DOM ein
+    // let currentDiv: HTMLElement = document.getElementById("div1");
+    // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
 
-   // }
+    // }
 
 
 
