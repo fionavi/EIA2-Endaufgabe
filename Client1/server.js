@@ -6,9 +6,6 @@ const Url = require("url");
 const Mongo = require("mongodb");
 var Ende;
 (function (Ende) {
-    // interface Rezept {
-    //     [type: string]: string | string[] | undefined;
-    // }
     let rockets;
     let port = process.env.PORT;
     if (port == undefined) {
@@ -48,13 +45,13 @@ var Ende;
             }
             let jsonString = JSON.stringify(url.query);
             _response.write(jsonString);
-            // storeRezept(url.query);
+            storeRocket(url.query);
         }
         _response.write("This is my response");
         _response.end();
     }
-    // function storeRezept(_rezept: Rezept): void {
-    //     rockets.insertOne(_rezept);
-    // }
+    function storeRocket(_rocket) {
+        rockets.insertOne(_rocket);
+    }
 })(Ende = exports.Ende || (exports.Ende = {}));
 //# sourceMappingURL=server.js.map

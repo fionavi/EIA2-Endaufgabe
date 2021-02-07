@@ -3,9 +3,9 @@ import * as Url from "url";
 import * as Mongo from "mongodb";
 
 export namespace Ende {
-    // interface Rezept {
-    //     [type: string]: string | string[] | undefined;
-    // }
+    interface Rocket {
+        [type: string]: string | string[] | undefined;
+    }
 
     let rockets: Mongo.Collection;
     let port: number | string | undefined = process.env.PORT;
@@ -61,16 +61,16 @@ export namespace Ende {
 
             let jsonString: string = JSON.stringify(url.query);
             _response.write(jsonString);
-            // storeRezept(url.query);
+            storeRocket(url.query);
         }
 
         _response.write("This is my response");
         _response.end();
     }
 
-    // function storeRezept(_rezept: Rezept): void {
-    //     rockets.insertOne(_rezept);
-    // }
+    function storeRocket(_rocket: Rocket): void {
+        rockets.insertOne(_rocket);
+    }
 
 
 
