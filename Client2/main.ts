@@ -2,6 +2,7 @@ namespace Ende {
 
     window.addEventListener("load", handleload);
 
+
     export let crc2: CanvasRenderingContext2D;
 
     let particles: Particle[] = [];
@@ -133,6 +134,33 @@ namespace Ende {
 
     //     }
     // }
+
+    async function submitToServer(_event: Event): Promise<void> {
+
+        let formData: FormData = new FormData(document.forms[0]);
+        let query: URLSearchParams = new URLSearchParams(<any>formData);
+
+
+        // let url: string = "http://localhost:5001";
+        let url: string = "https://eia2endabgabe.herokuapp.com/";
+        url += "?" + query.toString();
+
+        // url += "?" + query.toString();
+        console.log("Prüfe Inhalt: " + query.toString());
+        console.log(url);
+
+        let response: Response = await fetch(url);   //wird an server gesendet, solange wird auf response gewartet
+        let responseText: string = await response.text();
+        console.log(response);
+        // alert("Dein Rezept wurde versendet.");
+        alert("This is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+
+        let newDiv: HTMLDivElement = document.createElement("div");
+        let newContent: any = document.createTextNode(responseText);
+        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+        let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
+        oldRocketsDiv.appendChild(newDiv);
+    }
 
     function update(): void {
         console.log("Update");

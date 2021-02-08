@@ -95,6 +95,26 @@ var Ende;
     //         particles.push(particle3);
     //     }
     // }
+    async function submitToServer(_event) {
+        let formData = new FormData(document.forms[0]);
+        let query = new URLSearchParams(formData);
+        // let url: string = "http://localhost:5001";
+        let url = "https://eia2endabgabe.herokuapp.com/";
+        url += "?" + query.toString();
+        // url += "?" + query.toString();
+        console.log("Prüfe Inhalt: " + query.toString());
+        console.log(url);
+        let response = await fetch(url); //wird an server gesendet, solange wird auf response gewartet
+        let responseText = await response.text();
+        console.log(response);
+        // alert("Dein Rezept wurde versendet.");
+        alert("This is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+        let newDiv = document.createElement("div");
+        let newContent = document.createTextNode(responseText);
+        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+        let oldRocketsDiv = document.getElementById("oldRockets");
+        oldRocketsDiv.appendChild(newDiv);
+    }
     function update() {
         console.log("Update");
         Ende.crc2.putImageData(imgData, 0, 0);

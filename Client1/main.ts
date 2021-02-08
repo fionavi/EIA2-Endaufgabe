@@ -1,9 +1,11 @@
 //import { start } from "repl";
 
+//import { MongoClient } from "mongodb";
+
 namespace Ende {
 
     window.addEventListener("load", handleLoad);
-    // window.addEventListener("load", showAll);
+    window.addEventListener("load", displayOldRockets);
 
     function handleLoad(_event: Event): void {
         console.log("Start");
@@ -89,7 +91,6 @@ namespace Ende {
 
     }
 
-
     async function submitToServer(_event: Event): Promise<void> {
 
         let formData: FormData = new FormData(document.forms[0]);
@@ -110,28 +111,89 @@ namespace Ende {
         // alert("Dein Rezept wurde versendet.");
         alert("This is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
 
-        let newDiv: HTMLDivElement = document.createElement("div");
-        let newContent: any = document.createTextNode(responseText);
-        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
-        let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
-        oldRocketsDiv.appendChild(newDiv);
+
+        // let newContent: any = document.createTextNode(responseText);
+        // let newDiv: HTMLDivElement = document.createElement("div");
+        // newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+
+        // let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
+        // oldRocketsDiv.appendChild(newDiv);
+
+
+
+
+
     }
 
 
-    //function showAll(_event: Event): void {
+    // function showAll(_event: Event): void {
 
-    // console.log("show collections");
+    //     console.log("show collections");
 
 
     // erstelle ein neues div Element
     // und gib ihm etwas Inhalt
 
-    // füge das neu erstellte Element und seinen Inhalt ins DOM ein
-    // let currentDiv: HTMLElement = document.getElementById("div1");
-    // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
+    // // füge das neu erstellte Element und seinen Inhalt ins DOM ein
+    // //let currentDiv: HTMLElement = document.getElementById("div1");
+    // //document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
+    // let currentDiv: HTMLElement = document.createElement("div");
+    // // currentDiv.innerHTML = newDiv.innerHTML;
+    // // console.log("cuurentDiv Inhalt" + currentDiv.innerHTML);
+    // // console.log("newDiv Inhalt" + newDiv.innerHTML);
+
+
+    // // currentDiv.insertAdjacentHTML("afterend", newContent);
+
+    // let currentDiv: HTMLElement = document.createElement("div");
+    // // currentDiv.insertAdjacentHTML("afterend", newContent);
+    // document.getElementById("oldRockets").insertAdjacentHTML("beforeend", currentDiv.textContent);
+
+
 
     // }
 
+    interface Rocket {
+        _id: string;
+        Name?: string;
+        color?: string;
+        explosion?: string;
+        lifetime?: string;
+    }
+
+    export async function displayOldRockets(_event: Event): Promise<void> {
+
+        let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
+        //let url: string = "http://localhost:5001/retrieve";
+        let response: Response = await fetch(url);   //wird an server gesendet, solange wird auf response gewartet
+        let allRockets: Rocket[] = await response.json();
+        console.log(allRockets);
+        for (let i: number = 0; i < allRockets.length; i++) {
+            let rocket: Rocket = allRockets[i];
+            let div: HTMLDivElement = document.createElement("div");
+            div.style.background = "white";
+            div.style.opacity = "0.5";
+
+            let p: HTMLElement = document.createElement("p");
+            p.style.color = "black";
+            p.innerHTML += "Name: " + rocket.Name + "<br>" + "Color: " + rocket.color + "<br>" + "Explosion: " + rocket.explosion + "<br>" + "Lifetime: " + rocket.lifetime + "<br>";
+            div.appendChild(p);
+            document.getElementById("oldRockets")!.appendChild(div);
+
+            console.log(rocket);
+            
+        }
+        //let responseText: string = await response.text();
+        // console.log(await response.text());
 
 
+
+        // p.innerHTML += databaseContent + "<br>";
+
+        // let div: HTMLDivElement = document.createElement("div");
+        // let p: HTMLElement = document.createElement("p");
+        // p.innerHTML += responseText + "<br>";
+
+
+    }
 }

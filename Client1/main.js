@@ -1,9 +1,10 @@
 "use strict";
 //import { start } from "repl";
+//import { MongoClient } from "mongodb";
 var Ende;
 (function (Ende) {
     window.addEventListener("load", handleLoad);
-    // window.addEventListener("load", showAll);
+    window.addEventListener("load", displayOldRockets);
     function handleLoad(_event) {
         console.log("Start");
         document.querySelector("#settings").addEventListener("click", saveSettings);
@@ -75,19 +76,37 @@ var Ende;
         console.log(response);
         // alert("Dein Rezept wurde versendet.");
         alert("This is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
-        let newDiv = document.createElement("div");
-        let newContent = document.createTextNode(responseText);
-        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
-        let oldRocketsDiv = document.getElementById("oldRockets");
-        oldRocketsDiv.appendChild(newDiv);
+        // let newContent: any = document.createTextNode(responseText);
+        // let newDiv: HTMLDivElement = document.createElement("div");
+        // newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
+        // let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
+        // oldRocketsDiv.appendChild(newDiv);
     }
-    //function showAll(_event: Event): void {
-    // console.log("show collections");
-    // erstelle ein neues div Element
-    // und gib ihm etwas Inhalt
-    // füge das neu erstellte Element und seinen Inhalt ins DOM ein
-    // let currentDiv: HTMLElement = document.getElementById("div1");
-    // document.body.insertAdjacentHTML(oldRocketsDiv, currentDiv);
-    // }
+    async function displayOldRockets(_event) {
+        let url = "https://eia2endabgabe.herokuapp.com/retrieve";
+        //let url: string = "http://localhost:5001/retrieve";
+        let response = await fetch(url); //wird an server gesendet, solange wird auf response gewartet
+        let allRockets = await response.json();
+        console.log(allRockets);
+        for (let i = 0; i < allRockets.length; i++) {
+            let rocket = allRockets[i];
+            let div = document.createElement("div");
+            div.style.background = "white";
+            div.style.opacity = "0.5";
+            let p = document.createElement("p");
+            p.style.color = "black";
+            p.innerHTML += "Name: " + rocket.Name + "<br>" + "Color: " + rocket.color + "<br>" + "Explosion: " + rocket.explosion + "<br>" + "Lifetime: " + rocket.lifetime + "<br>";
+            div.appendChild(p);
+            document.getElementById("oldRockets").appendChild(div);
+            console.log(rocket);
+        }
+        //let responseText: string = await response.text();
+        // console.log(await response.text());
+        // p.innerHTML += databaseContent + "<br>";
+        // let div: HTMLDivElement = document.createElement("div");
+        // let p: HTMLElement = document.createElement("p");
+        // p.innerHTML += responseText + "<br>";
+    }
+    Ende.displayOldRockets = displayOldRockets;
 })(Ende || (Ende = {}));
 //# sourceMappingURL=main.js.map

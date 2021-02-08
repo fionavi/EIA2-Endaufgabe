@@ -44,29 +44,37 @@ async function connectToDatabase(_url: string): Promise<void> {
     console.log("Database connection", rockets != undefined);
 }
 
-function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): void {
+async function handleRequest(_request: Http.IncomingMessage, _response: Http.ServerResponse): Promise<void> {
     console.log("request kam rein");
     //alert("Request wurde an Server gesendet");
 
-    _response.setHeader("content-type", "text/html; chartset=utf-8");
+    _response.setHeader("content-type", "application/json"); // Antwort als JSON
     _response.setHeader("Access-Control-Allow-Origin", "*");
 
 
     if (_request.url) {
         let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-        for (let key in url.query) {
-            _response.write(key + ": " + url.query[key] + "<br/>");
+        // for (let key in url.query) {
+        //     _response.write(key + ": " + url.query[key] + "<br/>");
+        // }
+        if (url.pathname == "/retrieve") {                              //wenn url "retrieve enthält
+            let rocketArray: Rocket[] = await getAllRockets();
+            _response.write(JSON.stringify(rocketArray));               //Array wird in String umgewandelt also in Text
+        } else {
+            storeRocket(url.query);
+            let jsonString: string = JSON.stringify(url.query);         
+            _response.write(jsonString);
         }
 
-        let jsonString: string = JSON.stringify(url.query);
-        _response.write(jsonString);
-        storeRocket(url.query);
     }
-
-    _response.write("This is my response");
     _response.end();
 }
 
-function storeRocket(_rocket: Rocket): void {
-    rockets.insertOne(_rocket);
+async function storeRocket(_rocket: Rocket): Promise<void> {
+    await rockets.insertOne(_rocket);
+}
+
+async function getAllRockets(): Promise<Rocket[]> {
+   let rocketsArray: Rocket[] = await rockets.find().toArray();         //alle Raketen aus Datenbank werden in Array gespeichert
+   return rocketsArray;
 }

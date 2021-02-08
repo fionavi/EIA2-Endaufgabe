@@ -30,24 +30,33 @@ async function connectToDatabase(_url) {
     rockets = mongoClient.db("Firework").collection("Rockets");
     console.log("Database connection", rockets != undefined);
 }
-function handleRequest(_request, _response) {
+async function handleRequest(_request, _response) {
     console.log("request kam rein");
     //alert("Request wurde an Server gesendet");
-    _response.setHeader("content-type", "text/html; chartset=utf-8");
+    _response.setHeader("content-type", "application/json"); // Antwort als JSON
     _response.setHeader("Access-Control-Allow-Origin", "*");
     if (_request.url) {
         let url = Url.parse(_request.url, true);
-        for (let key in url.query) {
-            _response.write(key + ": " + url.query[key] + "<br/>");
+        // for (let key in url.query) {
+        //     _response.write(key + ": " + url.query[key] + "<br/>");
+        // }
+        if (url.pathname == "/retrieve") { //wenn url "retrieve enthält
+            let rocketArray = await getAllRockets();
+            _response.write(JSON.stringify(rocketArray)); //Array wird in String umgewandelt also in Text
         }
-        let jsonString = JSON.stringify(url.query);
-        _response.write(jsonString);
-        storeRocket(url.query);
+        else {
+            storeRocket(url.query);
+            let jsonString = JSON.stringify(url.query);
+            _response.write(jsonString);
+        }
     }
-    _response.write("This is my response");
     _response.end();
 }
-function storeRocket(_rocket) {
-    rockets.insertOne(_rocket);
+async function storeRocket(_rocket) {
+    await rockets.insertOne(_rocket);
+}
+async function getAllRockets() {
+    let rocketsArray = await rockets.find().toArray(); //alle Raketen aus Datenbank werden in Array gespeichert
+    return rocketsArray;
 }
 //# sourceMappingURL=server.js.map
