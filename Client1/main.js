@@ -4,7 +4,7 @@
 var Ende;
 (function (Ende) {
     window.addEventListener("load", handleLoad);
-    window.addEventListener("load", displayOldRockets);
+    window.addEventListener("load", showOldRockets);
     function handleLoad(_event) {
         console.log("Start");
         document.querySelector("#settings").addEventListener("click", saveSettings);
@@ -65,8 +65,8 @@ var Ende;
     async function submitToServer(_event) {
         let formData = new FormData(document.forms[0]);
         let query = new URLSearchParams(formData);
-        // let url: string = "http://localhost:5001";
-        let url = "https://eia2endabgabe.herokuapp.com/";
+        let url = "http://localhost:5001";
+        //let url: string = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
         // url += "?" + query.toString();
         console.log("Prüfe Inhalt: " + query.toString());
@@ -82,15 +82,16 @@ var Ende;
         // let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
         // oldRocketsDiv.appendChild(newDiv);
     }
-    async function displayOldRockets(_event) {
-        let url = "https://eia2endabgabe.herokuapp.com/retrieve";
-        //let url: string = "http://localhost:5001/retrieve";
+    async function showOldRockets(_event) {
+        //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
+        let url = "http://localhost:5001/retrieve";
         let response = await fetch(url); //wird an server gesendet, solange wird auf response gewartet
         let allRockets = await response.json();
         console.log(allRockets);
         for (let i = 0; i < allRockets.length; i++) {
             let rocket = allRockets[i];
             let div = document.createElement("div");
+            let isClicked = false;
             div.style.background = "white";
             div.style.opacity = "0.5";
             let p = document.createElement("p");
@@ -99,14 +100,32 @@ var Ende;
             div.appendChild(p);
             document.getElementById("oldRockets").appendChild(div);
             console.log(rocket);
+            div.addEventListener("click", function () { isClicked = true; });
+            if (isClicked = true) {
+                let finalName = document.querySelector("div#finalName");
+                let finalColor = document.querySelector("div#finalColor");
+                let finalExplosion = document.querySelector("div#finalExplosion");
+                let finalLifetime = document.querySelector("div#finalLifetime");
+                finalName.innerHTML = "Name: " + rocket.Name + " <span class='trash fas fa-trash-alt' id='deleteName'></span>" + "<br>";
+                document.querySelector("#deleteName").addEventListener("click", deleteName);
+                finalColor.innerHTML = "Color: " + rocket.color + " <span class='trash fas fa-trash-alt' id='deleteColor'></span>" + "<br>";
+                document.querySelector("#deleteColor").addEventListener("click", deleteColor);
+                finalExplosion.innerHTML = "Explosion: " + rocket.explosion + " <span class='trash fas fa-trash-alt' id='deleteExplosion'></span>" + "<br>";
+                document.querySelector("#deleteExplosion").addEventListener("click", deleteExplosion);
+                finalLifetime.innerHTML = "Lifetime: " + rocket.lifetime + " <span class='trash fas fa-trash-alt' id='deleteLifetime'></span>" + "<br>";
+                document.querySelector("#deleteLifetime").addEventListener("click", deleteLifetime);
+                isClicked = false;
+            }
         }
-        //let responseText: string = await response.text();
-        // console.log(await response.text());
-        // p.innerHTML += databaseContent + "<br>";
-        // let div: HTMLDivElement = document.createElement("div");
-        // let p: HTMLElement = document.createElement("p");
-        // p.innerHTML += responseText + "<br>";
     }
-    Ende.displayOldRockets = displayOldRockets;
+    Ende.showOldRockets = showOldRockets;
+    // function selectOldRocket(_event: Event): void {
+    // }
+    //let responseText: string = await response.text();
+    // console.log(await response.text());
+    // p.innerHTML += databaseContent + "<br>";
+    // let div: HTMLDivElement = document.createElement("div");
+    // let p: HTMLElement = document.createElement("p");
+    // p.innerHTML += responseText + "<br>";
 })(Ende || (Ende = {}));
 //# sourceMappingURL=main.js.map

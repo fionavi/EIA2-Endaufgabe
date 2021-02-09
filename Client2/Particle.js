@@ -12,27 +12,41 @@ var Ende;
         }
         explode(_timeslice) {
             console.log("Particles explode");
-            let offset = new Ende.Vector(this.velocity.x, this.velocity.y);
-            offset.scale(_timeslice);
-            this.position.add(offset);
-            if (this.position.x < Ende.crc2.canvas.width) {
-                this.position.x += 10;
+            // let offset: Vector = new Vector(this.velocity.x, this.velocity.y);
+            // offset.scale(_timeslice);
+            // this.position.add(offset);
+            // if (this.position.x < crc2.canvas.width) {
+            //     this.position.x += 100;
+            // }
+            // if (this.position.y < crc2.canvas.height) {
+            //     this.position.y += 100;
+            // }
+            // if (this.position.x > crc2.canvas.width) {
+            //     this.position.x -= 100;
+            // }
+            // if (this.position.y > crc2.canvas.height) {
+            //     this.position.y -= 100;
+            // }
+            // this.velocity.x *= friction;
+            // this.velocity.y *= friction;
+            // this.velocity.y += gravity;
+            // this.position.x += this.velocity.x;
+            // this.position.y += this.velocity.y;
+            // //this.opacity -= 0.003
+            let image;
+            image = Ende.crc2.getImageData(0, 0, 1500, 600);
+            Ende.crc2.clearRect(0, 0, 800, 600);
+            Ende.crc2.putImageData(image, 0, 0);
+            for (let i = 200; i < Ende.crc2.canvas.width; i++) {
+                if (Ende.crc2.canvas.height >= 400) {
+                    Ende.crc2.canvas.height = 250;
+                }
+                Ende.crc2.canvas.height += 1; //
+                if (Ende.crc2.canvas.width >= 500) {
+                    Ende.crc2.canvas.width = 300;
+                }
+                Ende.crc2.canvas.width += 1; //
             }
-            if (this.position.y < Ende.crc2.canvas.height) {
-                this.position.y += 10;
-            }
-            if (this.position.x > Ende.crc2.canvas.width) {
-                this.position.x -= 10;
-            }
-            if (this.position.y > Ende.crc2.canvas.height) {
-                this.position.y -= 100;
-            }
-            this.velocity.x *= friction;
-            this.velocity.y *= friction;
-            this.velocity.y += gravity;
-            this.position.x += this.velocity.x;
-            this.position.y += this.velocity.y;
-            //this.opacity -= 0.003
         }
         draw() {
             console.log("Particle draw");

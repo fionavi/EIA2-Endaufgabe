@@ -2,6 +2,7 @@
 var Ende;
 (function (Ende) {
     window.addEventListener("load", handleload);
+    window.addEventListener("load", displayOldRockets);
     let particles = [];
     let imgData;
     function handleload(_event) {
@@ -40,7 +41,7 @@ var Ende;
         let radiusParticle = 2;
         let particle = new Path2D();
         let radians = (Math.PI * 2) / nParticles;
-        let power = 12;
+        let power = 50;
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
         Ende.crc2.save();
         Ende.crc2.translate(_position.x, _position.y);
@@ -58,63 +59,32 @@ var Ende;
         }
         Ende.crc2.restore();
     }
-    // let mouse: MouseEvent = {
-    //     x: innerWidth / 2,
-    //     y: innerHeight / 2
-    // };
-    //     addEventListener("click", (event) => {
-    //         mouse.x = event.clientX;
-    //         mouse.y = event.clientY;
-    //         let particleCount: number = 500;
-    //         let power: number = 12;
-    //         let radians: number = (Math.PI * 2) / particleCount;
-    //         for (let i: number = 0; i < particleCount; i++) {
-    //             particles.push(
-    //                 new Particle(
-    //                     mouse.x,
-    //                     mouse.y,
-    //                     3,)
-    //             x: Math.cos(radians * i) * (Math.random() * power);
-    //             y: Math.sin(radians * i) * (Math.random() * power);
-    // }
-    //     })
-    // function createParticle(_nParticle: number): void {
-    //     console.log("Create Particles");
-    //     for (let i: number = 0; i < _nParticle; i++) {
-    //         let x: number = Math.random() * (300 - 150) + 150;
-    //         let particle1: Particle = new Round(2.0, x, 400);
-    //         let particle2: Particle = new Rain(2.0, x, 100);
-    //         let particle3: Particle = new Fountain(1, x, 3);
-    //         console.log("Particle: " + particle1);
-    //         console.log("Particle: " + particle2);
-    //         console.log("Particle: " + particle3);
-    //         particle1.draw();
-    //         particle3.draw();
-    //         particles.push(particle1);
-    //         particles.push(particle2);
-    //         particles.push(particle3);
-    //     }
-    // }
-    async function submitToServer(_event) {
-        let formData = new FormData(document.forms[0]);
-        let query = new URLSearchParams(formData);
-        // let url: string = "http://localhost:5001";
-        let url = "https://eia2endabgabe.herokuapp.com/";
-        url += "?" + query.toString();
-        // url += "?" + query.toString();
-        console.log("Prüfe Inhalt: " + query.toString());
-        console.log(url);
+    async function displayOldRockets(_event) {
+        //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
+        let url = "http://localhost:5001/retrieve";
         let response = await fetch(url); //wird an server gesendet, solange wird auf response gewartet
-        let responseText = await response.text();
-        console.log(response);
-        // alert("Dein Rezept wurde versendet.");
-        alert("This is my Response: " + responseText); //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
-        let newDiv = document.createElement("div");
-        let newContent = document.createTextNode(responseText);
-        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
-        let oldRocketsDiv = document.getElementById("oldRockets");
-        oldRocketsDiv.appendChild(newDiv);
+        let allRockets = await response.json();
+        console.log(allRockets);
+        for (let i = 0; i < allRockets.length; i++) {
+            let rocket = allRockets[i];
+            let button = document.createElement("button");
+            let isClicked = false;
+            button.style.background = "white";
+            button.style.opacity = "0.5";
+            let p = document.createElement("p");
+            p.style.color = "black";
+            p.innerHTML += rocket.Name;
+            button.appendChild(p);
+            document.getElementById("infoBar").appendChild(button);
+            console.log(rocket);
+            button.addEventListener("click", function () { isClicked = true; });
+            if (isClicked = true) {
+                console.log("wurde geklicket");
+                isClicked = false;
+            }
+        }
     }
+    Ende.displayOldRockets = displayOldRockets;
     function update() {
         console.log("Update");
         Ende.crc2.putImageData(imgData, 0, 0);

@@ -5,7 +5,8 @@
 namespace Ende {
 
     window.addEventListener("load", handleLoad);
-    window.addEventListener("load", displayOldRockets);
+    window.addEventListener("load", showOldRockets);
+
 
     function handleLoad(_event: Event): void {
         console.log("Start");
@@ -97,8 +98,8 @@ namespace Ende {
         let query: URLSearchParams = new URLSearchParams(<any>formData);
 
 
-        // let url: string = "http://localhost:5001";
-        let url: string = "https://eia2endabgabe.herokuapp.com/";
+        let url: string = "http://localhost:5001";
+        //let url: string = "https://eia2endabgabe.herokuapp.com/";
         url += "?" + query.toString();
 
         // url += "?" + query.toString();
@@ -161,16 +162,17 @@ namespace Ende {
         lifetime?: string;
     }
 
-    export async function displayOldRockets(_event: Event): Promise<void> {
+    export async function showOldRockets(_event: Event): Promise<void> {
 
-        let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
-        //let url: string = "http://localhost:5001/retrieve";
+        //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
+        let url: string = "http://localhost:5001/retrieve";
         let response: Response = await fetch(url);   //wird an server gesendet, solange wird auf response gewartet
         let allRockets: Rocket[] = await response.json();
         console.log(allRockets);
         for (let i: number = 0; i < allRockets.length; i++) {
             let rocket: Rocket = allRockets[i];
             let div: HTMLDivElement = document.createElement("div");
+            let isClicked: boolean = false;
             div.style.background = "white";
             div.style.opacity = "0.5";
 
@@ -181,19 +183,48 @@ namespace Ende {
             document.getElementById("oldRockets")!.appendChild(div);
 
             console.log(rocket);
-            
+
+            div.addEventListener("click", function () { isClicked = true; });
+
+            if (isClicked = true) {
+                
+                let finalName: HTMLDivElement = <HTMLDivElement>document.querySelector("div#finalName");
+                let finalColor: HTMLDivElement = <HTMLDivElement>document.querySelector("div#finalColor");
+                let finalExplosion: HTMLDivElement = <HTMLDivElement>document.querySelector("div#finalExplosion");
+                let finalLifetime: HTMLDivElement = <HTMLDivElement>document.querySelector("div#finalLifetime");
+
+                finalName.innerHTML = "Name: " + rocket.Name + " <span class='trash fas fa-trash-alt' id='deleteName'></span>" + "<br>";
+                document.querySelector("#deleteName").addEventListener("click", deleteName);
+                finalColor.innerHTML = "Color: " + rocket.color + " <span class='trash fas fa-trash-alt' id='deleteColor'></span>" + "<br>";
+                document.querySelector("#deleteColor").addEventListener("click", deleteColor);
+                finalExplosion.innerHTML = "Explosion: " + rocket.explosion + " <span class='trash fas fa-trash-alt' id='deleteExplosion'></span>" + "<br>";
+                document.querySelector("#deleteExplosion").addEventListener("click", deleteExplosion);
+                finalLifetime.innerHTML = "Lifetime: " + rocket.lifetime + " <span class='trash fas fa-trash-alt' id='deleteLifetime'></span>" + "<br>";
+                document.querySelector("#deleteLifetime").addEventListener("click", deleteLifetime);
+
+                isClicked = false;
+            }
+
         }
-        //let responseText: string = await response.text();
-        // console.log(await response.text());
-
-
-
-        // p.innerHTML += databaseContent + "<br>";
-
-        // let div: HTMLDivElement = document.createElement("div");
-        // let p: HTMLElement = document.createElement("p");
-        // p.innerHTML += responseText + "<br>";
 
 
     }
+
+    // function selectOldRocket(_event: Event): void {
+
+    // }
+
+
+    //let responseText: string = await response.text();
+    // console.log(await response.text());
+
+
+
+    // p.innerHTML += databaseContent + "<br>";
+
+    // let div: HTMLDivElement = document.createElement("div");
+    // let p: HTMLElement = document.createElement("p");
+    // p.innerHTML += responseText + "<br>";
+
+
 }

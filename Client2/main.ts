@@ -1,6 +1,8 @@
 namespace Ende {
 
     window.addEventListener("load", handleload);
+    window.addEventListener("load", displayOldRockets);
+    
 
 
     export let crc2: CanvasRenderingContext2D;
@@ -57,7 +59,7 @@ namespace Ende {
         let radiusParticle: number = 2;
         let particle: Path2D = new Path2D();
         let radians: number = (Math.PI * 2) / nParticles;
-        let power: number = 12;
+        let power: number = 50;
 
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI);
 
@@ -134,32 +136,45 @@ namespace Ende {
 
     //     }
     // }
+    interface Rocket {
+        _id: string;
+        Name?: string;
+        color?: string;
+        explosion?: string;
+        lifetime?: string;
+    }
+    export async function displayOldRockets(_event: Event): Promise<void> {
 
-    async function submitToServer(_event: Event): Promise<void> {
-
-        let formData: FormData = new FormData(document.forms[0]);
-        let query: URLSearchParams = new URLSearchParams(<any>formData);
-
-
-        // let url: string = "http://localhost:5001";
-        let url: string = "https://eia2endabgabe.herokuapp.com/";
-        url += "?" + query.toString();
-
-        // url += "?" + query.toString();
-        console.log("Prüfe Inhalt: " + query.toString());
-        console.log(url);
-
+        //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
+        let url: string = "http://localhost:5001/retrieve";
         let response: Response = await fetch(url);   //wird an server gesendet, solange wird auf response gewartet
-        let responseText: string = await response.text();
-        console.log(response);
-        // alert("Dein Rezept wurde versendet.");
-        alert("This is my Response: " + responseText);  //falls alle extra angezeigt werden sollen, dann sollte das in extra funktion
+        let allRockets: Rocket[] = await response.json();
+        console.log(allRockets);
+        for (let i: number = 0; i < allRockets.length; i++) {
+            let rocket: Rocket = allRockets[i];
+            let button: HTMLButtonElement = document.createElement("button");
+            let isClicked: boolean = false;
+            button.style.background = "white";
+            button.style.opacity = "0.5";
 
-        let newDiv: HTMLDivElement = document.createElement("div");
-        let newContent: any = document.createTextNode(responseText);
-        newDiv.appendChild(newContent); // füge den Textknoten zum neu erstellten div hinzu.
-        let oldRocketsDiv: HTMLElement = document.getElementById("oldRockets");
-        oldRocketsDiv.appendChild(newDiv);
+            let p: HTMLElement = document.createElement("p");
+            p.style.color = "black";
+            p.innerHTML += rocket.Name;
+            button.appendChild(p);
+            document.getElementById("infoBar")!.appendChild(button);
+
+            console.log(rocket);
+
+            button.addEventListener("click", function () { isClicked = true; });
+
+            if (isClicked = true) {
+              console.log("wurde geklicket");
+              isClicked = false;
+            }
+
+        }
+
+
     }
 
     function update(): void {
