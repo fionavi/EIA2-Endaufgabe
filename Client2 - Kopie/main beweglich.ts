@@ -69,12 +69,8 @@ namespace Ende {
             crc2.translate(x, y);
             crc2.fill(particle);
             crc2.restore();
-
-           
         }
-
         crc2.restore();
-
     }
 
    
