@@ -5,22 +5,18 @@ var Ende;
     window.addEventListener("load", displayOldRockets);
     let particles = [];
     let imgData;
-    let power = 200; //beeinflusst Radius in dem sich Raketen bewegen 
+    let power = 20; //beeinflusst Radius in dem sich Raketen bewegen 
     function handleload(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas) {
             return;
         }
-        // document.querySelector("#rocket1").addEventListener("click", drawRound);
         console.log(canvas);
         Ende.crc2 = canvas.getContext("2d");
         console.log(Ende.crc2);
         drawSky();
-        // let position: Vector = new Vector(100, 100);
-        // drawRound(position);
-        //createParticle(3);
         imgData = Ende.crc2.getImageData(0, 0, 300, 600);
-        window.setInterval(update, 1000);
+        window.setInterval(update, 40);
     }
     function drawSky() {
         Ende.crc2.fillStyle = "black";
@@ -42,6 +38,7 @@ var Ende;
         let radiusParticle = 4;
         let particle = new Path2D();
         let radians = (Math.PI * 2) / nParticles;
+        power = power + 20; // Radius der Raketen sollte größer werden
         particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
         Ende.crc2.save();
         Ende.crc2.translate(_position.x, _position.y);
@@ -49,8 +46,6 @@ var Ende;
         for (let drawn = 0; drawn < nParticles; drawn++) {
             console.log(drawn + " particles drawn.");
             Ende.crc2.save();
-            // let x: number = (Math.random() * 100);
-            // let y: number = (Math.random() * 100);
             let x = Math.cos(radians * 2 * drawn) * power; //radialer bereich
             let y = Math.sin(radians * 2 * drawn) * power;
             Ende.crc2.translate(x, y);
@@ -92,9 +87,9 @@ var Ende;
         //     particle.explode(1 / 50);
         //     particle.draw();
         //     console.log("ist in for schleife von update")  
-        //}
+        // }
         let position = new Ende.Vector(300, 300);
         drawRound(position);
     }
 })(Ende || (Ende = {}));
-//# sourceMappingURL=main.js.map
+//# sourceMappingURL=main beweglich.js.map

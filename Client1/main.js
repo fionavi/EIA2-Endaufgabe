@@ -90,17 +90,18 @@ var Ende;
         console.log(allRockets);
         for (let i = 0; i < allRockets.length; i++) {
             let rocket = allRockets[i];
-            let div = document.createElement("div");
+            let button = document.createElement("button");
             let isClicked = false;
-            div.style.background = "white";
-            div.style.opacity = "0.5";
+            button.style.background = "white";
+            button.style.opacity = "0.5";
+            button.style.width = "80%";
             let p = document.createElement("p");
             p.style.color = "black";
             p.innerHTML += "Name: " + rocket.Name + "<br>" + "Color: " + rocket.color + "<br>" + "Explosion: " + rocket.explosion + "<br>" + "Lifetime: " + rocket.lifetime + "<br>";
-            div.appendChild(p);
-            document.getElementById("oldRockets").appendChild(div);
+            button.appendChild(p);
+            document.getElementById("oldRockets").appendChild(button);
             console.log(rocket);
-            div.addEventListener("click", function () { isClicked = true; });
+            button.addEventListener("click", function () { isClicked = true; });
             if (isClicked = true) {
                 let finalName = document.querySelector("div#finalName");
                 let finalColor = document.querySelector("div#finalColor");

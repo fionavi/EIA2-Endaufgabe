@@ -171,20 +171,22 @@ namespace Ende {
         console.log(allRockets);
         for (let i: number = 0; i < allRockets.length; i++) {
             let rocket: Rocket = allRockets[i];
-            let div: HTMLDivElement = document.createElement("div");
+            let button: HTMLElement = document.createElement("button");
             let isClicked: boolean = false;
-            div.style.background = "white";
-            div.style.opacity = "0.5";
+            button.style.background = "white";
+            button.style.opacity = "0.5";
+            button.style.width = "80%";
 
             let p: HTMLElement = document.createElement("p");
             p.style.color = "black";
             p.innerHTML += "Name: " + rocket.Name + "<br>" + "Color: " + rocket.color + "<br>" + "Explosion: " + rocket.explosion + "<br>" + "Lifetime: " + rocket.lifetime + "<br>";
-            div.appendChild(p);
-            document.getElementById("oldRockets")!.appendChild(div);
+            button.appendChild(p);
+            document.getElementById("oldRockets")!.appendChild(button);
+            
 
             console.log(rocket);
 
-            div.addEventListener("click", function () { isClicked = true; });
+            button.addEventListener("click", function () { isClicked = true; });
 
             if (isClicked = true) {
                 

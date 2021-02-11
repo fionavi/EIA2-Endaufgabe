@@ -7,6 +7,7 @@ var Ende;
     let arrayY = [];
     var image;
     window.addEventListener("load", main);
+    console.log("start");
     function main() {
         canvas = document.getElementsByTagName("canvas")[0];
         crc2 = canvas.getContext("2d");
@@ -28,14 +29,20 @@ var Ende;
         for (let i = 200; i < arrayX.length; i++) {
             if (arrayY[i] >= 400) {
                 arrayY[i] = 250;
+                // arrayY[i] += 1;
             }
             arrayY[i] += 1; //
             if (arrayX[i] >= 500) {
                 arrayX[i] = 300;
+                // arrayX[i] += 10;
             }
-            arrayX[i] += 1; //
+            arrayX[i] += 5 * Math.random(); //bewegen sich in Bereich um 5 nach rechts 
+            arrayY[i] += 5 * Math.random(); //bewegen sich in Bereich um 5 nach unten
             drawSnow(arrayX[i], arrayY[i]);
             console.log("Func draw aufgerufen");
+        }
+        for (let index = 0; index < 100; index++) {
+            console.log("timer nr " + index);
         }
         window.setTimeout(animate, 20);
     }

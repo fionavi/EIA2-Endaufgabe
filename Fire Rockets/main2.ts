@@ -7,6 +7,7 @@ namespace Ende {
     let arrayY: number[] = [];
     var image: any;
     window.addEventListener("load", main);
+    console.log("start");
 
 
 
@@ -19,13 +20,13 @@ namespace Ende {
         crc2.fillRect(0, 0, 1500, 600);
 
         for (let i: number = 0; i < 800; i++) {         //Bereich in den Particel dargestellt werden
-            arrayX[i] = Math.random() * 200 + 300;  
+            arrayX[i] = Math.random() * 200 + 300;
             arrayY[i] = Math.random() * 200 + 200;
             // arrayX[i] = Math.cos(((Math.PI * 2 / i)) * 100) * (Math.random() * 200);
             // arrayY[i] = Math.sin((Math.PI * 2 / i) * 100) * (Math.random() * 100);
 
 
-          
+
         }
 
         image = crc2.getImageData(0, 0, 1500, 600);
@@ -45,19 +46,25 @@ namespace Ende {
         for (let i: number = 200; i < arrayX.length; i++) {
             if (arrayY[i] >= 400) {
                 arrayY[i] = 250;
+                // arrayY[i] += 1;
+
             }
             arrayY[i] += 1; //
             if (arrayX[i] >= 500) {
                 arrayX[i] = 300;
+                // arrayX[i] += 10;
             }
-            arrayX[i] += 1; //
-
+            arrayX[i] += 5 * Math.random(); //bewegen sich in Bereich um 5 nach rechts 
+            arrayY[i] += 5 * Math.random(); //bewegen sich in Bereich um 5 nach unten
             drawSnow(arrayX[i], arrayY[i]);
+
             console.log("Func draw aufgerufen");
 
         }
 
-
+        for (let index: number = 0; index < 100; index++) {
+            console.log("timer nr " + index);
+        }
         window.setTimeout(animate, 20);
     }
 
