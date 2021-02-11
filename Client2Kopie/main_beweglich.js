@@ -94,4 +94,4 @@ var Ende;
         createRound(position);
     }
 })(Ende || (Ende = {}));
-//# sourceMappingURL=main beweglich.js.map
+//# sourceMappingURL=main_beweglich.js.map
