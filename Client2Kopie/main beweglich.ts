@@ -2,14 +2,13 @@ namespace Ende {
 
     window.addEventListener("load", handleload);
     window.addEventListener("load", displayOldRockets);
-    
+
 
 
     export let crc2: CanvasRenderingContext2D;
 
     let particles: Particle[] = [];
     let imgData: ImageData;
-    let power: number = 20;   //beeinflusst Radius in dem sich Raketen bewegen 
 
 
     function handleload(_event: Event): void {
@@ -23,7 +22,7 @@ namespace Ende {
         crc2 = <CanvasRenderingContext2D>canvas.getContext("2d");
         console.log(crc2);
         drawSky();
-    
+
         imgData = crc2.getImageData(0, 0, 300, 600);
         window.setInterval(update, 40);
 
@@ -45,35 +44,38 @@ namespace Ende {
         crc2.restore();
     }
 
-    function drawRound(_position: Vector): void {
-        console.log("round is drawing", _position);
-       
-        let nParticles: number = 100;
-        let radiusParticle: number = 4;
-        let particle: Path2D = new Path2D();
-        let radians: number = (Math.PI * 2) / nParticles;
-        power = power + 20 ;                      // Radius der Raketen sollte größer werden
-        particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
+    function createRound(_position: Vector): void {
+        console.log("round is created", _position);
+        let pRound: RoundParticle = new RoundParticle(0, 0, 1, 1);
 
-        crc2.save();
-        crc2.translate(_position.x, _position.y);
-        crc2.fillStyle = "yellow";
+        pRound.explode(1 / 50);
+        pRound.draw();
+        // let nParticles: number = 100;
+        // let radiusParticle: number = 4;
+        // let particle: Path2D = new Path2D();
+        // let radians: number = (Math.PI * 2) / nParticles;
+        // power = power + 20 ;                      // Radius der Raketen sollte größer werden
+        // particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
 
-        for (let drawn: number = 0; drawn < nParticles; drawn++) {
-            console.log(drawn + " particles drawn.");
-            crc2.save();
-            
-            let x: number = Math.cos(radians * 2 * drawn) * power;        //radialer bereich
-            let y: number = Math.sin(radians * 2 * drawn) * power;
-           
-            crc2.translate(x, y);
-            crc2.fill(particle);
-            crc2.restore();
-        }
-        crc2.restore();
+        // crc2.save();
+        // crc2.translate(_position.x, _position.y);
+        // crc2.fillStyle = "yellow";
+
+        // for (let drawn: number = 0; drawn < nParticles; drawn++) {
+        //     console.log(drawn + " particles drawn.");
+        //     crc2.save();
+
+        //     let x: number = Math.cos(radians * 2 * drawn) * power;        //radialer bereich
+        //     let y: number = Math.sin(radians * 2 * drawn) * power;
+
+        //     crc2.translate(x, y);
+        //     crc2.fill(particle);
+        //     crc2.restore();
+        // }
+        // crc2.restore();
     }
 
-   
+
     interface Rocket {
         _id: string;
         Name?: string;
@@ -81,8 +83,8 @@ namespace Ende {
         explosion?: string;
         lifetime?: string;
     }
-    
-    
+
+
     export async function displayOldRockets(_event: Event): Promise<void> {
 
         //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
@@ -108,8 +110,8 @@ namespace Ende {
             button.addEventListener("click", function () { isClicked = true; });
 
             if (isClicked = true) {
-              console.log("wurde geklicket");
-              isClicked = false;
+                console.log("wurde geklicket");
+                isClicked = false;
             }
 
         }
@@ -119,15 +121,15 @@ namespace Ende {
 
     function update(): void {
         console.log("Update");
-        crc2.putImageData(imgData, 0, 0);
+        //crc2.putImageData(imgData, 0, 0);
 
-        // for (let particle of particles) {
-        //     particle.explode(1 / 50);
-        //     particle.draw();
-        //     console.log("ist in for schleife von update")  
-        // }
+        for (let particle of particles) {
+            particle.explode(1 / 50);
+            particle.draw();
+            console.log("ist in for schleife von update")  
+        }
         let position: Vector = new Vector(300, 300);
-        drawRound(position);
+        createRound(position);
     }
 
 

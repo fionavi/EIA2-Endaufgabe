@@ -5,7 +5,6 @@ var Ende;
     window.addEventListener("load", displayOldRockets);
     let particles = [];
     let imgData;
-    let power = 20; //beeinflusst Radius in dem sich Raketen bewegen 
     function handleload(_event) {
         let canvas = document.querySelector("canvas");
         if (!canvas) {
@@ -32,27 +31,30 @@ var Ende;
         Ende.crc2.stroke();
         Ende.crc2.restore();
     }
-    function drawRound(_position) {
-        console.log("round is drawing", _position);
-        let nParticles = 100;
-        let radiusParticle = 4;
-        let particle = new Path2D();
-        let radians = (Math.PI * 2) / nParticles;
-        power = power + 20; // Radius der Raketen sollte größer werden
-        particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
-        Ende.crc2.save();
-        Ende.crc2.translate(_position.x, _position.y);
-        Ende.crc2.fillStyle = "yellow";
-        for (let drawn = 0; drawn < nParticles; drawn++) {
-            console.log(drawn + " particles drawn.");
-            Ende.crc2.save();
-            let x = Math.cos(radians * 2 * drawn) * power; //radialer bereich
-            let y = Math.sin(radians * 2 * drawn) * power;
-            Ende.crc2.translate(x, y);
-            Ende.crc2.fill(particle);
-            Ende.crc2.restore();
-        }
-        Ende.crc2.restore();
+    function createRound(_position) {
+        console.log("round is created", _position);
+        let pRound = new Ende.RoundParticle(0, 0, 1, 1);
+        pRound.explode(1 / 50);
+        pRound.draw();
+        // let nParticles: number = 100;
+        // let radiusParticle: number = 4;
+        // let particle: Path2D = new Path2D();
+        // let radians: number = (Math.PI * 2) / nParticles;
+        // power = power + 20 ;                      // Radius der Raketen sollte größer werden
+        // particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
+        // crc2.save();
+        // crc2.translate(_position.x, _position.y);
+        // crc2.fillStyle = "yellow";
+        // for (let drawn: number = 0; drawn < nParticles; drawn++) {
+        //     console.log(drawn + " particles drawn.");
+        //     crc2.save();
+        //     let x: number = Math.cos(radians * 2 * drawn) * power;        //radialer bereich
+        //     let y: number = Math.sin(radians * 2 * drawn) * power;
+        //     crc2.translate(x, y);
+        //     crc2.fill(particle);
+        //     crc2.restore();
+        // }
+        // crc2.restore();
     }
     async function displayOldRockets(_event) {
         //let url: string = "https://eia2endabgabe.herokuapp.com/retrieve";
@@ -82,14 +84,14 @@ var Ende;
     Ende.displayOldRockets = displayOldRockets;
     function update() {
         console.log("Update");
-        Ende.crc2.putImageData(imgData, 0, 0);
-        // for (let particle of particles) {
-        //     particle.explode(1 / 50);
-        //     particle.draw();
-        //     console.log("ist in for schleife von update")  
-        // }
+        //crc2.putImageData(imgData, 0, 0);
+        for (let particle of particles) {
+            particle.explode(1 / 50);
+            particle.draw();
+            console.log("ist in for schleife von update");
+        }
         let position = new Ende.Vector(300, 300);
-        drawRound(position);
+        createRound(position);
     }
 })(Ende || (Ende = {}));
 //# sourceMappingURL=main beweglich.js.map
