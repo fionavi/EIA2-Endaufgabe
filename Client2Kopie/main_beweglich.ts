@@ -44,12 +44,13 @@ namespace Ende {
         crc2.restore();
     }
 
-    function createRound(_position: Vector): void {
+    function createRound(_position: Vector, _velocity: Vector, _x: number, _y: number): void {
         console.log("round is created", _position);
-        let pRound: RoundParticle = new RoundParticle(0, 0, 1, 1);
-
-        pRound.explode(1 / 50);
+        let pRound: RoundParticle = new RoundParticle(_position, _velocity, _x, _y);
         pRound.draw();
+        pRound.explode(1 / 50);
+
+
         // let nParticles: number = 100;
         // let radiusParticle: number = 4;
         // let particle: Path2D = new Path2D();
@@ -126,10 +127,11 @@ namespace Ende {
         for (let particle of particles) {
             particle.explode(1 / 50);
             particle.draw();
-            console.log("ist in for schleife von update")  
+            console.log("ist in for schleife von update");
         }
         let position: Vector = new Vector(300, 300);
-        createRound(position);
+        let velocity: Vector = new Vector(10, 10);
+        createRound(position, velocity, 100, 100);
     }
 
 

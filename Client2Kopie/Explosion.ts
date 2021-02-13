@@ -8,7 +8,7 @@ namespace Ende {
         velocity: Vector;
 
 
-        constructor(_position: number, _velocity: number, _x?: number, _y?: number) {
+        constructor(_position: Vector, _velocity: Vector, _x?: number, _y?: number) {
             console.log("PARTICLES CONSTRUCTOR");
             this.position = new Vector(_x, _y);
             this.velocity = new Vector(0, 0);

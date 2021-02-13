@@ -19,7 +19,8 @@ var Ende;
             particle.arc(0, 0, radiusParticle, 0, 2 * Math.PI); // Wo sitzt radius auf Canvas
             Ende.crc2.save();
             Ende.crc2.translate(this.position.x, this.position.y);
-            Ende.crc2.fillStyle = "yellow";
+            Ende.crc2.fillStyle = "red";
+            Ende.crc2.restore();
         }
     }
     Ende.RoundParticle = RoundParticle;

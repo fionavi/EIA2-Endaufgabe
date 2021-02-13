@@ -4,7 +4,7 @@ namespace Ende {
         position: Vector;
         velocity: Vector;
 
-        constructor(_position: number, _velocity: number, _x?: number, _y?: number) {
+        constructor(_position: Vector, _velocity: Vector, _x?: number, _y?: number) {
             super(_position, _velocity);
             console.log("ROUND CONSTRUCTOR");
 
@@ -27,7 +27,8 @@ namespace Ende {
 
             crc2.save();
             crc2.translate(this.position.x, this.position.y);
-            crc2.fillStyle = "yellow";
+            crc2.fillStyle = "red";
+            crc2.restore();
 
         }
     }

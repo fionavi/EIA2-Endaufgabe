@@ -31,11 +31,11 @@ var Ende;
         Ende.crc2.stroke();
         Ende.crc2.restore();
     }
-    function createRound(_position) {
+    function createRound(_position, _velocity, _x, _y) {
         console.log("round is created", _position);
-        let pRound = new Ende.RoundParticle(0, 0, 1, 1);
-        pRound.explode(1 / 50);
+        let pRound = new Ende.RoundParticle(_position, _velocity, _x, _y);
         pRound.draw();
+        pRound.explode(1 / 50);
         // let nParticles: number = 100;
         // let radiusParticle: number = 4;
         // let particle: Path2D = new Path2D();
@@ -91,7 +91,8 @@ var Ende;
             console.log("ist in for schleife von update");
         }
         let position = new Ende.Vector(300, 300);
-        createRound(position);
+        let velocity = new Ende.Vector(10, 10);
+        createRound(position, velocity, 100, 100);
     }
 })(Ende || (Ende = {}));
 //# sourceMappingURL=main_beweglich.js.map
