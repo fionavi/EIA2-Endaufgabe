@@ -34,8 +34,9 @@ var Ende;
     function createRound(_position, _velocity, _x, _y) {
         console.log("round is created", _position);
         let pRound = new Ende.RoundParticle(_position, _velocity, _x, _y);
-        pRound.draw();
-        pRound.explode(1 / 50);
+        // pRound.draw();
+        // pRound.explode(1 / 50);
+        particles.push(pRound);
         // let nParticles: number = 100;
         // let radiusParticle: number = 4;
         // let particle: Path2D = new Path2D();

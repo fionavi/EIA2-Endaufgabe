@@ -47,8 +47,9 @@ namespace Ende {
     function createRound(_position: Vector, _velocity: Vector, _x: number, _y: number): void {
         console.log("round is created", _position);
         let pRound: RoundParticle = new RoundParticle(_position, _velocity, _x, _y);
-        pRound.draw();
-        pRound.explode(1 / 50);
+        // pRound.draw();
+        // pRound.explode(1 / 50);
+        particles.push(pRound);
 
 
         // let nParticles: number = 100;
